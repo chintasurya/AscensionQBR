@@ -1,0 +1,6 @@
+IGPPT validated PASS 2026-11-27 11:09; 17 slides; 0 lesson rule(s); 0 warning(s)
+Deck: Ascension_QBR_FY27_PI-1.pptx
+Spec: deck.json
+
+
+PASS: 17 slides on the IG template, fonts, colours, fit, overlap, dashes and spelling checked.

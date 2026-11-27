@@ -1,0 +1,123 @@
+{
+  "theme": "dark",
+  "background": "black",
+  "slides": [
+    {"type": "title", "title": "Quarterly Business Review",
+     "subtitle": "Ascension Provider Services | FY27 PI-1",
+     "date": "July to September 2026",
+     "notes": "Welcome. This review covers FY27 PI-1, sprints 1 to 6, July to September 2026, for the ACM Enhancements (Provider and Network Services) Salesforce program."},
+
+    {"type": "agenda", "items": ["Reflection", "Quarter at a Glance", "Objectives and Business Impact", "Key Features Delivered", "Operational Efficiency", "Sprint Metrics", "Looking Ahead"]},
+
+    {"type": "statement", "eyebrow": "Reflection",
+     "text": "“Unless we are making progress in our nursing every year, every month, every week, take my word for it, we are going back.”",
+     "attribution": "Florence Nightingale, founder of modern nursing",
+     "notes": "Adapted from Florence Nightingale's addresses to her nurses (1870s). Tie-in: this quarter moved forward every sprint and every week. Six sprints, thirteen weekly regression cycles, and Texas CIN moved from build into business UAT."},
+
+    {"type": "stats", "title": "PI-1 at a Glance", "eyebrow": "Quarter at a Glance",
+     "subtitle": "Six sprints, July to September 2026",
+     "stats": [
+       {"value": "70/74", "label": "Work items completed", "text": "95% of planned items closed or resolved."},
+       {"value": "93", "label": "Story points delivered", "text": "About 15.5 points per sprint."},
+       {"value": "13", "label": "Weekly regression cycles", "text": "Every week of the quarter tested."},
+       {"value": "2", "label": "Major programs in UAT", "text": "Texas CIN and the Digital Provider Application.", "highlight": true}],
+     "note": "Source: Jira ILM project, sprints FY27.PI1.S1 to S6. Sprint 5 from the sprint status report.",
+     "notes": "74 items across S1 to S6: 70 closed or resolved, 3 DPA stories in business acceptance (UAT), 1 cancelled (ILM-1101). Story points count stories only."},
+
+    {"type": "table", "title": "Objectives and Business Impact", "eyebrow": "Objectives",
+     "columns": ["Objective", "Key Focus", "Status", "Key Results", "Business Impact"],
+     "widths": [2.3, 2.3, 2.1, 2.5, 2.5],
+     "rows": [
+       ["Expand the network to Texas (Texas CIN)", "Onboard Texas CIN users to Network Services Salesforce", "Design and build complete; business UAT started", "Grouping accounts, contact sharing, dashboards, DDG load", "One platform for National and Texas teams"],
+       ["Digital Provider Application (DPA)", "Online Professional and Facility forms", "Design and build in final stage; UAT in progress", "Lead auto-fill, contact mapping, roster template", "Less re-keying, more complete applications"],
+       ["Preserve legacy org history", "Move historical records and files to Enterprise", "Migrated and validated in UAT", "13 object mappings loaded; files migrated", "Audit and compliance history kept"],
+       ["Automate provider dues", "Discovery and solution design", "Design complete; data model built", "Architecture, design document, 7 objects", "Foundation for online dues payment"]],
+     "notes": "Status reflects Jira at the end of September 2026."},
+
+    {"type": "process", "title": "Texas CIN: From Build to Business UAT", "eyebrow": "Key Features Delivered",
+     "steps": [
+       {"title": "Discover", "owner": "Business", "text": "Dashboard, reporting, intake and contracting needs captured.", "icon": "search"},
+       {"title": "Build", "owner": "IG team", "text": "National and Texas fixes, grouping accounts, contact sharing.", "icon": "code"},
+       {"title": "Train", "owner": "IG team", "text": "Two training sessions for Texas users before UAT.", "icon": "users"},
+       {"title": "Business UAT", "owner": "Texas CIN", "text": "Texas users validate; feedback fixed in sprint.", "icon": "clipboard-check"},
+       {"title": "Go-live ready", "owner": "Joint", "text": "Deployment checklist, DDG data load, CAB review.", "icon": "rocket"}],
+     "highlight": 3,
+     "bullets": ["Texas dashboards and reports built from discovery sessions with Texas stakeholders", "CAB review and production testing completed in the October IP sprint"]},
+
+    {"type": "cards", "title": "Texas CIN: One Platform, Two Markets", "eyebrow": "Key Features Delivered",
+     "cards": [
+       {"icon": "warning", "title": "Business Problem", "bullets": ["Texas intake ran on RedCap, HubSpot and email", "Grouping accounts with many Tax IDs not supported", "No Texas dashboards or reports"]},
+       {"icon": "tools", "title": "Solution", "bullets": ["Texas CIN onboarded to Network Services Salesforce", "Grouping account logic and contact sharing flow", "Texas dashboards, reports and DDG data load"]},
+       {"icon": "chart", "title": "Business Impact", "bullets": ["Efficiency: one process for both teams", "Visibility: Texas metrics on dashboards", "Data quality: Texas provider data loaded"], "highlight": true}]},
+
+    {"type": "cards", "title": "Digital Provider Application", "eyebrow": "Key Features Delivered",
+     "cards": [
+       {"icon": "warning", "title": "Business Problem", "bullets": ["Applicants re-entered details Salesforce already held", "Application contacts not captured in Salesforce", "Forms and PDFs behind the final design"]},
+       {"icon": "tools", "title": "Solution", "bullets": ["Form auto-filled from the Lead", "Four contact roles mapped to Contacts", "New NetPar fields and roster template", "Updated Professional and Facility PDFs"]},
+       {"icon": "chart", "title": "Business Impact", "tag": "In UAT", "bullets": ["Experience: less duplicate entry", "Speed: eligibility data in one place", "Accuracy: submitted data verified"], "highlight": true}]},
+
+    {"type": "cards", "title": "Legacy History Moved to Enterprise", "eyebrow": "Key Features Delivered",
+     "cards": [
+       {"icon": "warning", "title": "Business Problem", "bullets": ["Network Services history held in the legacy org", "Needed for audit, compliance and reporting", "Must not clutter the Health Cloud model"]},
+       {"icon": "tools", "title": "Solution", "bullets": ["Historical objects built in the Enterprise org", "13 object mappings loaded with Data Loader", "Files migrated with record links kept"]},
+       {"icon": "chart", "title": "Business Impact", "bullets": ["Compliance: audit history preserved", "Clean data model for daily work", "File counts reconciled in UAT"], "highlight": true}]},
+
+    {"type": "cards", "title": "Discovery Sets Up the Next Builds", "eyebrow": "Key Features Delivered",
+     "cards": [
+       {"icon": "dollar", "title": "Provider Dues", "bullets": ["High-level architecture and design document", "Seven-object dues data model configured", "UX engaged on the payment page"]},
+       {"icon": "search", "title": "Texas ACO Intake", "bullets": ["Intake and contracting discovery done", "Pain points: RedCap, HubSpot, email", "Salesforce future state drafted"]},
+       {"icon": "file", "title": "Legacy Migration", "bullets": ["Migration approach designed and documented", "Object model and naming agreed", "Production package prepared"]}]},
+
+    {"type": "cards", "title": "Operational Efficiency Enhancements", "eyebrow": "Operational Efficiency",
+     "cards": [
+       {"icon": "file", "title": "Net Par letters", "text": "Letters sent on Opportunity stage change. Live since 8 September."},
+       {"icon": "workflow", "title": "HFN trigger points", "text": "HFN updates on re-parenting and fee schedule changes."},
+       {"icon": "database", "title": "APDH practitioner feed", "text": "Real-time feed in DEV; new provider fields in payload."},
+       {"icon": "headset", "title": "Support readiness", "text": "Guides and runbooks handed to production support."},
+       {"icon": "users-cog", "title": "DDG data support", "text": "Hierarchy model testing and Texas data loads."},
+       {"icon": "check-circle", "title": "TIN and grouping QA", "text": "Parenting, re-parenting and Tax ID checks tested."}]},
+
+    {"type": "chart", "title": "93 Story Points Across Six Sprints", "eyebrow": "Sprint Metrics",
+     "subtitle": "Story points completed per sprint, FY27 PI-1",
+     "chart": {"type": "column", "categories": ["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4", "Sprint 5", "Sprint 6"],
+               "values": [11, 20, 16, 20, 10, 16]},
+     "takeaways": ["15.5 points per sprint on average", "Sprint 5 held more design, spike and test work", "Only stories carry points, so test and design effort is not shown"]},
+
+    {"type": "chart", "title": "Work Mix: Build and Quality", "eyebrow": "Sprint Metrics",
+     "subtitle": "Completed work items by type, FY27 PI-1",
+     "chart": {"type": "doughnut", "categories": ["Stories", "Tests", "Design", "Spikes"],
+               "values": [33, 28, 5, 4]},
+     "takeaways": ["33 stories and 28 test items completed", "Testing kept pace with build every sprint", "9 design and spike items shaped the next builds"]},
+
+    {"type": "table", "title": "PI-1 Performance Metrics", "eyebrow": "Sprint Metrics",
+     "columns": ["Metric", "Value", "Notes"],
+     "widths": [3, 2.3, 6.5],
+     "rows": [
+       ["Sprints completed", "6", "Sprints 1 to 6, July to September 2026"],
+       ["Work items completed", "70 of 74 (95%)", "3 DPA stories in business UAT; 1 cancelled"],
+       ["Stories completed", "33", "Plus 5 design items and 4 spikes"],
+       ["Story points delivered", "93", "15.5 points per sprint on average"],
+       ["Velocity range", "10 to 20 points", "Lowest in Sprint 5, a design and test heavy sprint"],
+       ["Test items resolved", "28", "Includes 13 weekly regression cycles"]],
+     "note": "Source: Jira ILM project export and Sprint 5 status report."},
+
+    {"type": "timeline", "title": "Looking Ahead: PI-2 Priorities", "eyebrow": "Looking Ahead",
+     "milestones": [
+       {"date": "Oct", "title": "Texas CIN live", "text": "CAB review and production testing done in the IP sprint."},
+       {"date": "PI-2", "title": "Texas expansion", "text": "Next phase of Texas CIN onboarding."},
+       {"date": "PI-2", "title": "DPA sign-off", "text": "Close UAT on form and PDF updates, then release."},
+       {"date": "PI-2", "title": "Legacy history", "text": "Confirm the date and run the production migration."},
+       {"date": "PI-2", "title": "Provider Dues", "text": "Agree scope and timing for the build."},
+       {"date": "PI-2", "title": "Texas ACO intake", "text": "Design Salesforce intake and contracting."}]},
+
+    {"type": "bullets", "title": "Decisions and Support Needed", "eyebrow": "Looking Ahead",
+     "bullets": [
+       "Confirm the production date for the legacy history migration",
+       "Business sign-off on DPA form and PDF updates in UAT",
+       "Prioritize the Provider Dues build: billing approval and payment links",
+       "Agree the Texas ACO intake future state before design starts"],
+     "callout": {"value": "3", "label": "DPA stories awaiting sign-off", "text": "Professional form, Facility form and PDF updates.", "color": "magenta"}},
+
+    {"type": "closing", "style": "thank-you"}
+  ]
+}
