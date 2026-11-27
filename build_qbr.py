@@ -17,7 +17,7 @@ IGPPT = Path(sys.argv[sys.argv.index("--igppt") + 1]) if "--igppt" in sys.argv e
 sys.path.insert(0, str(IGPPT / "scripts"))
 
 from ig_kit import (BOTTOM, CYAN, GREEN, LEFT, MAGENTA, NAVY, ORANGE, RIGHT, WIDTH, YELLOW,  # noqa: E402
-                    Deck, columns, fit_size)
+                    Deck, columns, fit_size, text_height)
 
 LOGO = HERE / "assets" / "ascension-logo-reversed.png"
 DIM_LINE = "2A2E35"
@@ -47,24 +47,28 @@ def stage_tracker(c, y, stages):
         c.text(x, y + 0.74, w, 0.26, note.upper(), size=8.5, bold=True, spacing=1.5, color=col, align="center")
 
 
-def feature_slide(deck, title, stages, numbers, rows, notes=""):
-    """Stage tracker, three highlighted numbers on the left, problem / solution / impact on the right."""
+def feature_slide(deck, title, stages, highlights, rows, notes=""):
+    """Stage tracker; highlighted outcomes on the left (value line, explanation line, same style for every item);
+    problem / solution / impact summaries on the right."""
     c = deck.slide(title, eyebrow="Key Features Built", notes=notes)
     stage_tracker(c, 1.95, stages)
     y0, h = 3.25, BOTTOM - 3.25
-    c.card(LEFT, y0, 3.55, h)
-    step = (h - 0.3) / len(numbers)
-    for k, (value, label, color) in enumerate(numbers):
-        big_number(c, LEFT + 0.3, y0 + 0.2 + k * step, 3.0, value, label, color, size=36, label_size=11.5, label_h=0.38)
-    x, lw = LEFT + 3.85, 2.5
+    pw = 3.75
+    c.card(LEFT, y0, pw, h)
+    step = (h - 0.3) / len(highlights)
+    for k, (value, label, color) in enumerate(highlights):
+        y = y0 + 0.18 + k * step
+        c.text(LEFT + 0.3, y, pw - 0.6, 0.4, value, size=20, bold=True, color=color)
+        c.text(LEFT + 0.3, y + 0.4, pw - 0.6, step - 0.45, label, size=11.5, color=c.t.muted)
+    x, lw = LEFT + pw + 0.3, 1.9
     tx, tw = x + lw, RIGHT - x - lw
     rh = h / len(rows)
     for k, (label, color, text) in enumerate(rows):
         yy = y0 + k * rh
         if k:
             c.line(x, yy, RIGHT, yy, color=DIM_LINE, width=1)
-        c.label(x, yy + 0.2, lw - 0.2, label, color=color)
-        c.text(tx, yy + 0.16, tw, rh - 0.3, text, fit=(14, 10.5))
+        c.label(x, yy + 0.2, lw - 0.15, label, color=color)
+        c.text(tx, yy + 0.14, tw, rh - 0.26, text, fit=(14, 10.5))
     return c
 
 
@@ -113,22 +117,22 @@ def build(out, photo=None):
 
     # 5 Objectives and business impact
     c = deck.slide("Objectives and Business Impact", eyebrow="Objectives")
-    cols = [("Objective", 2.45), ("Key focus", 2.55), ("Status", 2.2), ("Key results", 2.45), ("Business impact", 2.48)]
+    cols = [("Objective", 2.3), ("Key focus", 2.3), ("Status", 2.05), ("Key results", 2.3), ("Business impact", 3.18)]
     xs, x = [], LEFT
     for _, w in cols:
         xs.append(x); x += w
     for (name, w), x in zip(cols, xs):
         c.label(x + 0.18, 1.92, w - 0.3, name, color=CYAN)
     rows = [
-        ("Expand the network to Texas (Texas CIN)", "Onboard Texas CIN users to Network Services Salesforce",
-         "Built; business UAT started; go-live in PI-2", "Grouping accounts, contact sharing, dashboards, data load",
-         "2", "markets on one platform", CYAN),
-        ("Digital Provider Application (DPA)", "Online Professional, Facility and Ancillary forms",
-         "Built; UAT in progress; go-live in PI-2", "Lead auto-fill, contact mapping, new PDFs",
-         "3", "provider forms made digital", YELLOW),
+        ("Expand the network to Texas (Texas CIN)", "Onboard Texas CIN as a new market on Network Services Salesforce",
+         "Built; business UAT started; go-live in PI-2", "Texas record type, sharing, routing, stages",
+         "100%", "Texas records kept separate", CYAN),
+        ("Digital Provider Application (DPA)", "One digital intake for provider onboarding",
+         "Built; UAT in progress; go-live in PI-2", "Auto invite, lead conversion, data mapping",
+         "1", "digital form for onboarding", YELLOW),
         ("Preserve legacy org history", "Move historical records and files to Enterprise",
          "Built; UAT and production pending", "Historical data and file migration built",
-         "13", "objects of history ready to move", MAGENTA),
+         "1", "org for current and old records", MAGENTA),
         ("Automate provider dues", "Discovery and solution design",
          "Design complete; build to be planned", "Architecture, design document, data model",
          "7", "object dues model ready", GREEN)]
@@ -140,8 +144,8 @@ def build(out, photo=None):
         c.text(xs[1] + 0.18, y + 0.1, cols[1][1] - 0.3, rh - 0.2, focus, size=11.5, color=c.t.muted, valign="middle")
         c.text(xs[2] + 0.18, y + 0.1, cols[2][1] - 0.3, rh - 0.2, status, size=11.5, bold=True, color=col, valign="middle")
         c.text(xs[3] + 0.18, y + 0.1, cols[3][1] - 0.3, rh - 0.2, result, size=11.5, color=c.t.muted, valign="middle")
-        c.text(xs[4] + 0.18, y + 0.08, 0.75, rh - 0.16, num, size=30, color=col, light=True, valign="middle")
-        c.text(xs[4] + 0.95, y + 0.1, cols[4][1] - 1.1, rh - 0.2, num_label, size=11.5, valign="middle")
+        c.text(xs[4] + 0.18, y + 0.08, 1.15, rh - 0.16, num, size=28, color=col, light=True, valign="middle")
+        c.text(xs[4] + 1.4, y + 0.1, cols[4][1] - 1.55, rh - 0.2, num_label, size=11.5, valign="middle")
     oy = ry + 4 * (rh + gap) + 0.05
     c.card(LEFT, oy, WIDTH, BOTTOM - oy, fill=NAVY, border=CYAN)
     c.text(LEFT + 0.3, oy, WIDTH - 0.6, BOTTOM - oy, [
@@ -155,36 +159,49 @@ def build(out, photo=None):
     feature_slide(deck, "Texas CIN: Built and in Business UAT",
                   [("Discovery", "done", "Complete"), ("Design", "done", "Complete"), ("Build", "done", "Complete"),
                    ("Business UAT", "current", "Started"), ("Go-live", "next", "PI-2")],
-                  [("23", "work items delivered", CYAN), ("2", "markets on one platform", YELLOW),
-                   ("2", "user training sessions", MAGENTA)],
-                  [("Business problem", CYAN, "Texas intake ran on RedCap, HubSpot and email. Grouping accounts with "
-                    "many Tax IDs were not supported, and Texas had no dashboards."),
-                   ("Solution", YELLOW, "Texas CIN onboarded to Network Services Salesforce: grouping account logic, "
-                    "contact sharing flow, Texas dashboards and reports, and the DDG data load."),
-                   ("Business impact", MAGENTA, "One process for National and Texas teams, Texas metrics visible on "
-                    "dashboards, and Texas provider data loaded ahead of go-live.")])
+                  [("100%", "Record separation between Texas CIN and National.", CYAN),
+                   ("1 platform", "One Salesforce framework for multiple markets.", YELLOW),
+                   ("Easy to onboard", "New markets such as Texas Seton join the same model.", MAGENTA),
+                   ("Clear ownership", "Each team owns and sees only its own records and work.", GREEN)],
+                  [("Problem", CYAN, "Texas CIN runs its own intake, stages, credentialing, contracting and participation, with "
+                    "Texas-only ownership and provider changes that must flow across records. By hand: duplicates, "
+                    "broken hierarchies and missed handoffs."),
+                   ("Solution", YELLOW, "A Texas CIN record type from Lead to Contract, kept apart from National by market-based "
+                    "sharing on one automation framework. Leads convert to the right provider structure, TIN "
+                    "integrity is enforced and work routes to the Texas team."),
+                   ("Impact", MAGENTA, "One Salesforce view of the Texas provider lifecycle, with "
+                    "restricted record access, consistent data, less duplicate entry, clear status and pipeline "
+                    "reporting, and lower risk when provider details change.")],
+                  notes="Sharing: National and Texas CIN public groups, ownership-based sharing rules and the NS "
+                        "Market field. Cascades originate from Healthcare Provider so they never cross markets. "
+                        "Texas stages include Network Interest Form, M&C Committee Approval and CPA Created - TX.")
     feature_slide(deck, "Digital Provider Application: In UAT",
                   [("Discovery", "done", "Complete"), ("Design", "done", "Complete"), ("Build", "done", "Complete"),
                    ("Business UAT", "current", "In progress"), ("Go-live", "next", "PI-2")],
-                  [("16", "work items delivered", CYAN), ("3", "provider forms made digital", YELLOW),
-                   ("4", "contact roles captured automatically", MAGENTA)],
-                  [("Business problem", CYAN, "Applicants re-entered details Salesforce already held, application "
-                    "contacts were not captured, and forms and PDFs lagged the final design."),
-                   ("Solution", YELLOW, "Forms auto-filled from the Lead, four contact roles mapped to Contacts, "
-                    "new NetPar fields, the roster template in the invitation and updated PDFs."),
-                   ("Business impact", MAGENTA, "Less duplicate entry for applicants, eligibility details in one "
-                    "place for the team, and complete application data in Salesforce.")])
+                  [("1 digital form", "One entry point for provider onboarding.", CYAN),
+                   ("9 steps automated", "Intake automated end to end, invite to documents.", YELLOW),
+                   ("Less manual work", "No re-keying from emails, documents and spreadsheets.", MAGENTA),
+                   ("Better provider data", "Complete and consistent from the first submission.", GREEN)],
+                  [("Problem", CYAN, "Onboarding needs tax and NPI, licenses, insurance, credentialing details and documents. "
+                    "Staff re-keyed data, records drifted apart, attachments stayed on the lead and contacts were "
+                    "created by hand."),
+                   ("Solution", YELLOW, "One digital application in Salesforce. It invites eligible leads, prevents duplicate "
+                    "invitations, converts the lead to an account and opportunity, maps data to provider records, "
+                    "adds office-staff contacts and relinks documents."),
+                   ("Impact", MAGENTA, "A single, standard entry point for onboarding, documents that follow the provider, a "
+                    "faster path to contracting and credentialing, and staff focused on providers, not data entry.")])
     feature_slide(deck, "Legacy History: Built, UAT Pending",
                   [("Discovery", "done", "Complete"), ("Design", "done", "Complete"), ("Build", "done", "Complete"),
                    ("UAT", "paused", "Pending"), ("Production", "paused", "Pending")],
-                  [("13", "object mappings built", CYAN), ("6", "work items delivered", YELLOW),
-                   ("1", "production package prepared", MAGENTA)],
-                  [("Business problem", CYAN, "Network Services history sat in the legacy org, needed for audit, "
+                  [("1 org", "Current and historical records in one place.", CYAN),
+                   ("100%", "Of history kept apart from live data.", YELLOW),
+                   ("Easy access", "Old records found in Enterprise Salesforce, no legacy org login.", MAGENTA)],
+                  [("Problem", CYAN, "Network Services history sat in the legacy org, needed for audit, "
                     "compliance and reporting without cluttering the Health Cloud model."),
-                   ("Solution", YELLOW, "Historical objects built in the Enterprise org, migration of 13 object "
-                    "mappings with Data Loader, and file migration that keeps record links."),
-                   ("Business impact", MAGENTA, "Audit history ready to move to Enterprise. UAT and production are "
-                    "pending while the team focuses on the Texas CIN go-live.")])
+                   ("Solution", YELLOW, "Historical objects built in the Enterprise org, records migrated with "
+                    "Data Loader, and files migrated with their record links kept."),
+                   ("Impact", MAGENTA, "Easier access to old records for audit, compliance and reporting. UAT "
+                    "and production are pending while the team focuses on the Texas CIN go-live.")])
 
     # 9 Discovery complete
     c = deck.slide("Discovery Complete for Two Future Builds", eyebrow="Key Features Built")
